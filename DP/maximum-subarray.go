@@ -19,8 +19,8 @@ func maxSubArray(nums []int) (int, int) {
 	return max, e - s + 1
 }
 
-// dp[i] = max(dp[i-1] + nums[i],nums[i])
-// res = max(dp[])
+// DP[i] = max(DP[i-1] + nums[i],nums[i])
+// res = max(DP[])
 // maxLen sub array max len
 func maxSubArrayV2(nums []int) (res, maxLen int) {
 	if len(nums) == 0 {
