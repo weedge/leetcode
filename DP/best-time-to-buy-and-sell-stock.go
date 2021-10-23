@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+
 func maxProfit(prices []int) int {
 	maxProfit := 0
 	minPrice := 1<<32 - 1
@@ -33,6 +34,36 @@ func maxProfitV2(prices []int) int {
 	}
 	fmt.Printf("DP:%v", dp)
 	return max
+}
+
+// At most once
+// 需求：
+// 一次交易获取最大收益
+// 两个状态：
+// 0. 一次持有股票
+// 1. 一次没有持有股票
+// 递推推演 定义模型公式：
+// 第i天一次持有股票最大收益 dp[i][0] = max(dp[i-1][0],-price[i])
+// 第i天一次没有持有股票最大收益 dp[i][1] = max(dp[i-1][1],dp[i-1][0]+price[i])
+// 初始：
+// dp[0][0] = -price[0]
+// dp[0][1] = 0
+// 最大收益
+// dp[n-1][1]
+func maxProfitV3(prices []int) int {
+	n := len(prices)
+	if n == 0 {
+		return 0
+	}
+	dp := make([][2]int, n)
+	dp[0][0] = -prices[0]
+	dp[0][1] = 0
+	for i := 1; i < n; i++ {
+		dp[i][0] = Max(dp[i-1][0], -prices[i])
+		dp[i][1] = Max(dp[i-1][1], dp[i-1][0]+prices[i])
+	}
+
+	return dp[n-1][1]
 }
 
 func Max(a, b int) int {

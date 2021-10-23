@@ -1,6 +1,8 @@
 package main
 
 // twice
+// 需求：
+// 只允许两次交易获取最大收益
 // 一天一共就有五个状态:
 //	0.没有操作
 //	1.第一次买入
@@ -8,6 +10,7 @@ package main
 //	3.第二次买入
 //	4.第二次卖出
 // DP[i][j]中 i表示第i天，j为 [0 - 4] 五个状态，DP[i][j]表示第i天状态j所剩最大现金。
+// 递推推演 定义模型公式：
 // 第i天没有操作 DP[i][0] = DP[i-1][0]
 // 第i天第一次买入所剩最大现金 DP[i][1] = max(DP[i-1][0] - prices[i], DP[i-1][1]);
 // 第i天第一次卖出所剩最大现金 DP[i][2] = max(DP[i-1][1] + prices[i], DP[i-1][2]);
@@ -19,6 +22,8 @@ package main
 // 第0天第一次卖出所剩最大现金 DP[0][2] = 0
 // 第0天第二次买入所剩最大现金 DP[0][3] = -prices[0]
 // 第0天第二次卖出所剩最大现金 DP[0][4] = 0
+// 最大收益
+// dp[n-1][4]
 func maxProfitIII(prices []int) int {
 	if len(prices) == 0 {
 		return 0
@@ -29,7 +34,6 @@ func maxProfitIII(prices []int) int {
 		}
 		return b
 	}
-	max := 0
 	n := len(prices)
 	dp := make([][]int, n)
 	dp[0] = make([]int, 5)
@@ -42,13 +46,9 @@ func maxProfitIII(prices []int) int {
 		dp[i][2] = Max(dp[i-1][2], dp[i-1][1]+prices[i])
 		dp[i][3] = Max(dp[i-1][3], dp[i-1][2]-prices[i])
 		dp[i][4] = Max(dp[i-1][4], dp[i-1][3]+prices[i])
-
-		if dp[i][4] > max {
-			max = dp[i][4]
-		}
 	}
 
-	return max
+	return dp[n-1][4]
 }
 
 func main() {

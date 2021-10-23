@@ -11,7 +11,6 @@ func maxProfitIV(k int, prices []int) int {
 		}
 		return b
 	}
-	max := 0
 	n := len(prices)
 	dp := make([][]int, n)
 	dp[0] = make([]int, 2*k+1)
@@ -33,13 +32,9 @@ func maxProfitIV(k int, prices []int) int {
 				dp[i][j] = Max(dp[i-1][j], dp[i-1][j-1]-prices[i])
 			}
 		}
-
-		if dp[i][2*k] > max {
-			max = dp[i][2*k]
-		}
 	}
 
-	return max
+	return dp[n-1][2*k]
 }
 
 func main() {
