@@ -1,6 +1,10 @@
 package main
 
-func maxSubArray(nums []int) (int, int) {
+import "fmt"
+
+func maxSubArray(tmp []int) (int, int, int) {
+	nums := make([]int, len(tmp))
+	copy(nums, tmp)
 	max := nums[0]
 	s, e := 0, 0
 	for i := 1; i < len(nums); i++ {
@@ -16,13 +20,13 @@ func maxSubArray(nums []int) (int, int) {
 			max = nums[i]
 		}
 	}
-	return max, e - s + 1
+	return max, s, e
 }
 
 // DP[i] = max(DP[i-1] + nums[i],nums[i])
 // res = max(DP[])
 // maxLen sub array max len
-func maxSubArrayV2(nums []int) (res, maxLen int) {
+func maxSubArrayForLong(nums []int) (res, s, e int) {
 	if len(nums) == 0 {
 		return
 	}
@@ -30,7 +34,6 @@ func maxSubArrayV2(nums []int) (res, maxLen int) {
 	dp := make([]int, len(nums))
 	dp[0] = nums[0]
 	res = nums[0]
-	s, e := 0, 0
 	for i := 1; i < len(nums); i++ {
 		dp[i] = max(dp[i-1]+nums[i], nums[i])
 		if dp[i] > res {
@@ -41,7 +44,6 @@ func maxSubArrayV2(nums []int) (res, maxLen int) {
 			e = i
 		}
 	}
-	maxLen = e - s + 1
 
 	return
 }
@@ -53,8 +55,43 @@ func max(a, b int) (max int) {
 	return
 }
 
+func maxSubArrayForShort(nums []int) (res, s, e int) {
+	start := 0
+	n := len(nums)
+	sum := -(1<<32 - 1)
+	res = -(1<<32 - 1)
+	for i := 0; i < n; i++ {
+		if sum < 0 {
+			start = i
+			sum = nums[i]
+		} else {
+			sum = sum + nums[i]
+		}
+		if res < sum {
+			res = sum
+			s = start
+			e = i
+		}
+	}
+
+	return
+}
+
 func main() {
-	max, maxLen := maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4})
-	max2, maxLen2 := maxSubArrayV2([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4})
-	println(max, maxLen, max2, maxLen2)
+	/*
+		nums := []int{-2, 1, 6, -3, 4, -1, 2, 1, -5, 4, 7}
+		fmt.Printf("%v\n", nums)
+		max, s, e := maxSubArray(nums)
+		println(max, s, e)
+		fmt.Printf("%v\n", nums[s:e+1])
+	*/
+
+	nums := []int{450, 309, 460, -155, 337, -335, 45, -220, -209, 352, -348, -448, 412, 37, 155, -283, 493, -500, -116, -260, -443, 40, -235, 400, 468, 400, 446, 186, -84, 196, -363, -252, -193, -110, -26, -124, 116, -210, -374, -69, 142, 137, 316, 136, -73, 393, 388, -188, 37, 41, 286, -93, -107, 80, -125, -486, 119, 197, -333, 409}
+	max2, s2, e2 := maxSubArrayForLong(nums)
+	println(max2, s2, e2)
+	fmt.Printf("%v\n", nums[s2:e2+1])
+
+	max3, s3, e3 := maxSubArrayForShort(nums)
+	println(max3, s3, e3)
+	fmt.Printf("%v\n", nums[s3:e3+1])
 }
