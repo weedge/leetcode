@@ -13,7 +13,7 @@ package main
 // dp[0][0] = -price[0]
 // dp[0][1] = 0
 // 最大收益
-// dp[n-1][1]
+// max(dp[n-1][0],dp[n-1][1])
 func maxProfitWithTransactionFree(prices []int, fee int) int {
 	n := len(prices)
 	if n == 0 {
@@ -35,5 +35,5 @@ func maxProfitWithTransactionFree(prices []int, fee int) int {
 		dp[i][1] = Max(dp[i-1][1], dp[i-1][0]+prices[i]-fee)
 	}
 
-	return dp[n-1][1]
+	return Max(dp[n-1][0], dp[n-1][1])
 }
