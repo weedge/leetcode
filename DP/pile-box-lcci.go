@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/weedge/leetcode/utils"
+	"github.com/weedge/lib/mathx"
+	"github.com/weedge/lib/sortx"
 )
 
 // sort -> dp
@@ -20,7 +21,7 @@ func pileBox(box [][]int) (int, int) {
 		return 0, 0
 	}
 
-	bx := utils.TwoDimensionalArray(box)
+	bx := sortx.TwoDimensionalArray(box)
 	sort.Sort(bx)
 	fmt.Println(bx)
 
@@ -33,8 +34,8 @@ func pileBox(box [][]int) (int, int) {
 		d[i] = bx[i][2]
 		for j := 0; j < i; j++ {
 			if bx[i][0] > bx[j][0] && bx[i][1] > bx[j][1] && bx[i][2] > bx[j][2] {
-				d[i] = utils.Max(d[i], d[j]+bx[i][2])
-				dp[i] = utils.Max(dp[i], dp[i]+1)
+				d[i] = mathx.Max(d[i], d[j]+bx[i][2])
+				dp[i] = mathx.Max(dp[i], dp[i]+1)
 			}
 			if dp[i] > max {
 				max = dp[i]
