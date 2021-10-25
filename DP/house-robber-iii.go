@@ -1,8 +1,11 @@
 package main
 
-import "github.com/weedge/lib/mathx"
+import (
+	"github.com/weedge/leetcode/define"
+	"github.com/weedge/lib/mathx"
+)
 
-func robIII(root *TreeNode) int {
+func robIII(root *define.TreeNode) int {
 	selected, unSelected := dfs(root)
 	return mathx.Max(selected, unSelected)
 }
@@ -15,7 +18,7 @@ func robIII(root *TreeNode) int {
 // 不选择当前节点：
 // 左右孩子可以被选中，也可以不被选中；是孩子节点被选中和不被选中情况下权值较大值之和。
 // unSelected = mathx.Max(rSelected, rUnSelected) + mathx.Max(lSelected, lUnSelected)
-func dfs(node *TreeNode) (selected, unSelected int) {
+func dfs(node *define.TreeNode) (selected, unSelected int) {
 	if node == nil {
 		return
 	}
