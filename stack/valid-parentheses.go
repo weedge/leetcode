@@ -2,7 +2,7 @@ package main
 
 
 // 定义匹配关系
-// 不匹配出栈
+// 不匹配入栈
 // 匹配出栈
 // 栈为空为有效
 func isValid(s string) bool {
