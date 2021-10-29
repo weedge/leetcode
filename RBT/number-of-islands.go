@@ -5,6 +5,7 @@ import (
 )
 
 // 回溯
+// 深度优先
 // 以当等于1的点，开始递归回溯上下左右为1的点，变为0, 直到数组边界和中途遇到0的点
 func getIslandCnV2(grid [][]int) int {
 	num := 0
