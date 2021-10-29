@@ -1,5 +1,6 @@
 package main
 
+// 深度优先(多叉树🌲深度优先遍历)
 func maxAreaOfIsland(grid [][]int) int {
 	n := len(grid)
 	if n == 0 {
