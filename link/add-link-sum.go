@@ -5,13 +5,6 @@ import (
 	. "github.com/weedge/leetcode/define"
 )
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func addLinkSum(n, m int, link1, link2 *ListNode) *ListNode {
 	p1, p2 := link1, link2
 	a1, a2 := []int{}, []int{}
