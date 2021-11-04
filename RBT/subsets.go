@@ -2,6 +2,20 @@ package main
 
 import "fmt"
 
+func subsets(nums []int) (ans [][]int) {
+	n := len(nums)
+	for mask := 0; mask < 1<<n; mask++ {
+		set := []int{}
+		for i, v := range nums {
+			if mask>>i&1 > 0 {
+				set = append(set, v)
+			}
+		}
+		ans = append(ans, append([]int(nil), set...))
+	}
+	return
+}
+
 func getSubArrs(nums []int) [][]int {
 	if len(nums) == 0 {
 		return [][]int{}
@@ -55,10 +69,11 @@ func getSubForK(nums []int, k int) [][]int {
 
 func main() {
 	//nums1 := []int{4, 3, 2, 1}
-	//fmt.Println(getSubForK(nums1, 2))
+	//nums1 := []int{3, 2, 4, 1}
+	//fmt.Println(getSubForK(nums1, 3))
 	//return
-	nums := []int{3, 2, 1}
-	res := getSubArrs(nums)
+	nums := []int{4, 3, 2, 1}
+	res := subsets(nums)
 	fmt.Println(res)
 	//nums := [][]int{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}}
 }
