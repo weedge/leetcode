@@ -30,17 +30,6 @@ func deleteDuplication(pHead *ListNode) *ListNode {
 	return head.Next
 }
 
-func printLink(head *ListNode) {
-	if head == nil {
-		return
-	}
-	p := head
-	for p != nil {
-		println(p.Val)
-		p = p.Next
-	}
-}
-
 func main() {
 	testCase := []int{1, 2, 3, 3, 4, 4, 5}
 	pHead := &ListNode{}
