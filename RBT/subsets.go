@@ -2,18 +2,22 @@ package main
 
 import "fmt"
 
-func subsetsDP(nums []int) (ans [][]int) {
-	n := len(nums)
-	ans = [][]int{}
-	ans = append(ans, []int{})
-	for i := 0; i < n; i++ {
-		m := len(ans)
-		for j := 0; j < m; j++ {
-			tmpArr := make([]int, len(ans[j]))
-			copy(tmpArr, ans[j])
-			ans = append(ans, append(tmpArr, nums[i]))
+func subsetsBT(nums []int) (ans [][]int) {
+	set := []int{}
+	var dfs func(int)
+	dfs = func(cur int) {
+		if cur == len(nums) {
+			tmp := make([]int, len(set))
+			copy(tmp, set)
+			ans = append(ans, tmp)
+			return
 		}
+		set = append(set, nums[cur])
+		dfs(cur + 1)
+		set = set[:len(set)-1]
+		dfs(cur + 1)
 	}
+	dfs(0)
 	return
 }
 
@@ -92,7 +96,7 @@ func main() {
 	fmt.Println(res)
 
 	nums2 := []int{9, 0, 3, 5, 7}
-	res2 := subsetsDP(nums2)
+	res2 := subsetsBT(nums2)
 	fmt.Println(res2)
 	//nums := [][]int{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}}
 }
