@@ -14,7 +14,7 @@ func subsetsBT(nums []int) (ans [][]int) {
 		}
 		set = append(set, nums[cur])
 		dfs(cur + 1)
-		set = set[:len(set)-1]
+		set = set[:len(set)-1] //回溯
 		dfs(cur + 1)
 	}
 	dfs(0)
