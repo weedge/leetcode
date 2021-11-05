@@ -2,6 +2,21 @@ package main
 
 import "fmt"
 
+func subsetsDP(nums []int) (ans [][]int) {
+	n := len(nums)
+	ans = [][]int{}
+	ans = append(ans, []int{})
+	for i := 0; i < n; i++ {
+		m := len(ans)
+		for j := 0; j < m; j++ {
+			tmpArr := make([]int, len(ans[j]))
+			copy(tmpArr, ans[j])
+			ans = append(ans, append(tmpArr, nums[i]))
+		}
+	}
+	return
+}
+
 func subsets(nums []int) (ans [][]int) {
 	n := len(nums)
 	for mask := 0; mask < 1<<n; mask++ {
@@ -72,8 +87,12 @@ func main() {
 	//nums1 := []int{3, 2, 4, 1}
 	//fmt.Println(getSubForK(nums1, 3))
 	//return
-	nums := []int{4, 3, 2, 1}
+	nums := []int{9, 0, 3, 5, 7}
 	res := subsets(nums)
 	fmt.Println(res)
+
+	nums2 := []int{9, 0, 3, 5, 7}
+	res2 := subsetsDP(nums2)
+	fmt.Println(res2)
 	//nums := [][]int{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}}
 }
