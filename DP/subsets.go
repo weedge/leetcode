@@ -20,6 +20,7 @@ func subsets(nums []int) (ans [][]int) {
 	return
 }
 
+// 测试集不能太大, O(n*2^n)
 func main() {
-	
+
 }

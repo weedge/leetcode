@@ -88,6 +88,7 @@ func getSubForK(nums []int, k int) [][]int {
 	return ans
 }
 
+// 测试集不能太大, O(n*2^n)
 func main() {
 	//nums1 := []int{4, 3, 2, 1}
 	//nums1 := []int{3, 2, 4, 1}
