@@ -59,31 +59,33 @@ func getSubArrs(nums []int) [][]int {
 	return res
 }
 
+// 暴力成回溯了。。。
+// 回溯需要脑袋瓜子清晰的时候来写
 func getSubForK(nums []int, k int) [][]int {
 	n := len(nums)
-	res := [][]int{}
-	for i := 0; i < n; i++ {
-		item := []int{nums[i]}
-		if k == 1 {
-			res = append(res, item)
-			continue
-		}
-		for j, num := range nums {
-			if j < i {
-				continue
-			}
-			if num == nums[i] {
-				continue
-			}
-			item = append(item, num)
-			if len(item) == k {
-				res = append(res, item)
-				item = []int{nums[i]}
-			}
-		}
+	if n == 0 {
+		return [][]int{}
 	}
+	ans := [][]int{}
+	set := []int{}
+	var dfs func(cur int)
+	dfs = func(cur int) {
+		if cur == n {
+			if len(set) == k {
+				tmp := make([]int, len(set))
+				copy(tmp, set)
+				ans = append(ans, tmp)
+			}
+			return
+		}
+		set = append(set, nums[cur])
+		dfs(cur + 1)
+		set = set[:len(set)-1]
+		dfs(cur + 1)
+	}
+	dfs(0)
 
-	return res
+	return ans
 }
 
 func main() {
