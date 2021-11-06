@@ -34,9 +34,7 @@ fuck leetcode 🦉
 
 1. “物来顺应，未来不迎，当时不杂，既过不恋” -- 曾国藩
 
-2. "Yesterday is a history, tomorrow is a mystery, only today is a gift, that is why we call it present. " -- 功夫熊猫
-
-
+2. "Yesterday is a history, tomorrow is a mystery, only today is a gift, that is why we call it present. " -- 功夫熊猫 (inner peace)
 
 ##### 规律
 

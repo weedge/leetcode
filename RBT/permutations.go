@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//无重复的数，给出全排列
 func permute(nums []int) [][]int {
 	n := len(nums)
 	if n == 0 {

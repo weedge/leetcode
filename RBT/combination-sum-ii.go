@@ -8,6 +8,7 @@ import (
 // 不重复
 // 梳理递归分支
 // dfs(i+1, sum) //i+1 不重复,当前位置可重复使用计算, 组合问题，不讲究顺序（即 [2, 2, 3] 与 [2, 3, 2] 视为同列表时）
+// 排序后，加速剪枝，无需用map过滤
 func combinationSum2(candidates []int, target int) [][]int {
 	n := len(candidates)
 	if n == 0 {
@@ -16,26 +17,26 @@ func combinationSum2(candidates []int, target int) [][]int {
 
 	ans := [][]int{}
 	set := []int{}
-	mapSet := map[string]struct{}{}
+	//mapSet := map[string]struct{}{}
 	var dfs func(cur, sum int)
 	dfs = func(cur, sum int) {
-		if sum > target {
-			return
-		}
 		if sum == target {
 			tmp := make([]int, len(set))
 			copy(tmp, set)
 
-			//sort tmp
-			sort.Ints(tmp)
-			key := ""
-			for _, k := range tmp {
-				key = fmt.Sprintf("%s%d", key, k)
-			}
-			if _, ok := mapSet[key]; ok {
-				return
-			}
-			mapSet[key] = struct{}{}
+			/*
+				//sort tmp
+				sort.Ints(tmp)
+				key := ""
+				for _, k := range tmp {
+					key = fmt.Sprintf("%s%d", key, k)
+				}
+				if _, ok := mapSet[key]; ok {
+					return
+				}
+				mapSet[key] = struct{}{}
+
+			*/
 
 			ans = append(ans, tmp)
 			return
@@ -72,9 +73,6 @@ func combinationSum2ByAll(candidates []int, target int) [][]int {
 	set := []int{}
 	var dfs func(cur, sum int)
 	dfs = func(cur, sum int) {
-		if sum > target {
-			return
-		}
 		if sum == target {
 			tmp := make([]int, len(set))
 			copy(tmp, set)
@@ -111,15 +109,20 @@ func combinationSum2ByAll(candidates []int, target int) [][]int {
 	return res
 }
 
-func main() {
+func testCost() {
 	type Input struct {
 		nums   []int
 		target int
 	}
 	testCases := []Input{
+		{nums: []int{-2}, target: -2},
+		{nums: []int{0, -2}, target: -2},
+		{nums: []int{0, -1, 2, -3}, target: -2},
+		{nums: []int{0, -1, -2, -3}, target: -2},
 		{nums: []int{10, 1, 2, 7, 6, 1, 5}, target: 8},
 		{nums: []int{2, 5, 2, 1, 2}, target: 5},
 		{nums: []int{1, 1}, target: 2},
+		{nums: []int{2}, target: 2},
 		{nums: []int{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, target: 27}, //测试超时
 		{nums: []int{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, target: 30}, //测试超时
 	}
@@ -129,4 +132,8 @@ func main() {
 		res := combinationSum2(testCase.nums, testCase.target)
 		fmt.Println(res)
 	}
+}
+
+func main() {
+	testCost()
 }
