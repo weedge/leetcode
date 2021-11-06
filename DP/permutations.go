@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//无重复的数，给出全排列
 // nums = [1,2,3]
 // dp[0] = [[1]]
 // dp[1]需要将2插入到[1]中，即dp[1] = [2,1] [1,2];
@@ -29,6 +30,7 @@ func permute(nums []int) [][]int {
 }
 
 // insert [1,2],3 => [[3,1,2],[1,3,2],[1,2]]
+// insert [1,1],1 => [[1,1,1],[1,1,1],[1,1,1]]
 func insert(arr []int, val int) [][]int {
 	res := [][]int{}
 	for pos := 0; pos < len(arr)+1; pos++ {
@@ -50,6 +52,7 @@ func insert(arr []int, val int) [][]int {
 
 func main() {
 	//fmt.Println(insert([]int{1, 2}, 3))
+	//fmt.Println(insert([]int{1, 1}, 1))
 	//return
 	testCases := [][]int{
 		{1, 2, 3},
