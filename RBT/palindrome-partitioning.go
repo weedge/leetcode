@@ -22,7 +22,8 @@ func partition(s string) [][]string {
 				continue
 			}
 			set = append(set, s[cur:i+1])
-			dfs(cur + 1)
+			//dfs(cur + 1)
+			dfs(i + 1)
 			set = set[:len(set)-1]
 		}
 
@@ -35,7 +36,7 @@ func partition(s string) [][]string {
 func checkPalindrome(s string) bool {
 	n := len(s)
 	if n == 0 {
-		return false
+		return true
 	}
 
 	l, r := 0, n-1
