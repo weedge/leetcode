@@ -5,6 +5,7 @@ import (
 	. "github.com/weedge/leetcode/define"
 )
 
+// 按单链表反序相加
 func addLinkSum(n, m int, link1, link2 *ListNode) *ListNode {
 	p1, p2 := link1, link2
 	a1, a2 := []int{}, []int{}

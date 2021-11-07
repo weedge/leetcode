@@ -5,6 +5,7 @@ import (
 	. "github.com/weedge/leetcode/define"
 )
 
+// 按单链表顺序相加
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	var head, tmp *ListNode
 	p, q := l1, l2
