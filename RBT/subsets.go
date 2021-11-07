@@ -1,6 +1,33 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+// 定义梳理递归树
+// 从左至右遍历剩余集合 nums
+// 从上往下遍历问题集合 set
+// 从剩余集合中选择元素，判断是否可选取(剪枝)
+// 叶子节点剩余节点为空为止
+// 回溯递归
+func subsetsBTFor(nums []int) (ans [][]int) {
+	n := len(nums)
+	set := []int{}
+	var dfs func(int)
+	dfs = func(cur int) {
+		tmp := make([]int, len(set))
+		copy(tmp, set)
+		ans = append(ans, tmp)
+
+		for i := cur; i < n; i++ {
+			set = append(set, nums[i])
+			dfs(i + 1)
+			set = set[:len(set)-1] //回溯
+		}
+	}
+	dfs(0)
+	return
+}
 
 func subsetsBT(nums []int) (ans [][]int) {
 	set := []int{}
@@ -94,12 +121,14 @@ func main() {
 	//nums1 := []int{3, 2, 4, 1}
 	//fmt.Println(getSubForK(nums1, 3))
 	//return
-	nums := []int{9, 0, 3, 5, 7}
-	res := subsets(nums)
-	fmt.Println(res)
-
-	nums2 := []int{9, 0, 3, 5, 7}
-	res2 := subsetsBT(nums2)
-	fmt.Println(res2)
-	//nums := [][]int{{}, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}}
+	testCases := [][]int{
+		{1, 2, 3},
+		{9, 0, 3, 5, 7},
+	}
+	for _, testCase := range testCases {
+		//res := subsets(testCase)
+		//res := subsetsBT(testCase)
+		res := subsetsBTFor(testCase)
+		fmt.Println(res)
+	}
 }

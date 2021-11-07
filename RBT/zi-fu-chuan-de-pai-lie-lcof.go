@@ -13,6 +13,8 @@ func SortString(w *string) {
 	return
 }
 
+// like subsets-ii
+// 去重需要先对集合排序
 func permutation(s string) []string {
 	n := len(s)
 	if n == 0 {
