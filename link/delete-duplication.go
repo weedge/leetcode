@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	. "github.com/weedge/leetcode/define"
 )
 
@@ -39,8 +40,6 @@ func main() {
 		tail = tail.Next
 	}
 
-	//printLink(pHead.Next)
-
 	h := deleteDuplication(pHead.Next)
-	printLink(h)
+	fmt.Println(h)
 }
