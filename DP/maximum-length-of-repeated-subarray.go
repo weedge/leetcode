@@ -1,10 +1,12 @@
 package main
 
+import "fmt"
+
 func findLengthV0(nums1 []int, nums2 []int) int {
 	max := 0
 	n := len(nums1)
 	m := len(nums2)
-
+	s := 0
 	for i := 0; i < n; i++ {
 		for j := 0; j < m; j++ {
 			k := 0
@@ -13,9 +15,11 @@ func findLengthV0(nums1 []int, nums2 []int) int {
 			}
 			if k > max {
 				max = k
+				s = i
 			}
 		}
 	}
+	fmt.Println(nums1[s:s+max])
 	return max
 }
 
@@ -30,6 +34,7 @@ func findLength(nums1 []int, nums2 []int) int {
 		dp[i] = make([]int, m+1)
 	}
 
+	e:=0
 	for i := 1; i <= n; i++ {
 		for j := 1; j <= m; j++ {
 			if nums1[i-1] == nums2[j-1] {
@@ -37,9 +42,11 @@ func findLength(nums1 []int, nums2 []int) int {
 			}
 			if dp[i][j] > max {
 				max = dp[i][j]
+				e=i
 			}
 		}
 	}
+	fmt.Println(nums1[e-max:e])
 
 	return max
 }
@@ -47,6 +54,6 @@ func findLength(nums1 []int, nums2 []int) int {
 func main() {
 	nums1 := []int{1, 2, 3, 2, 1}
 	nums2 := []int{3, 2, 1, 4, 7}
-	max := findLengthV0(nums1, nums2)
+	max := findLength(nums1, nums2)
 	println(max)
 }
