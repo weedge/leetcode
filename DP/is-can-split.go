@@ -1,7 +1,5 @@
 package main
 
-
-// 请在脑壳清晰的时候推导
 // 如果用暴力去解答，还是会遇到怎么组合的问题，这种属于直男思维，可以换个思维反过来递推，进行状态转移，就是dp思想了
 // 第i次的集合 为 第i-1次集合 和 nums[i] 的组合, 复用思想
 // nums = [1,2,3]
@@ -42,7 +40,15 @@ func isCanSplit(nums []int) bool {
 	return false
 }
 
-
 func main() {
-	
+	tCases := [][]int{
+		{1, 2, 3},
+		{1, 2, 13},
+		{1, 2, 13, 10},
+	}
+
+	for _, item := range tCases {
+		res := isCanSplit(item)
+		println(item, res)
+	}
 }
