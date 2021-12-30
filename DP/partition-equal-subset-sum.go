@@ -159,7 +159,7 @@ func main() {
 	}
 
 	for _, item := range tCases {
-		res := canPartition(item)
+		res := canPartitionV4(item)
 		println(res)
 	}
 }
