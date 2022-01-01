@@ -1,16 +1,48 @@
 package main
 
-// 空间复杂度优化的典型案例，大数据中经常用到，如果是开闭很长的biset，还可以优化成compression bitset, 需要tradoff
+import (
+	"github.com/weedge/lib/container/set"
+)
+
+// 空间复杂度优化的典型案例，大数据中经常用到，如果是开闭很长的bitset，还可以优化成compression bitset, 需要tradeoff
 
 /* //dp[i][sum] bool 二维表 => bitset
    bool canPartition(vector<int>& nums) {
        int sum = accumulate(nums.begin(), nums.end(), 0);
-       bitset<sum>bits(1);
+       bitset<10000>bits(1);
        if(sum & 1) return false; // sum为奇数
        for (int &num : nums) bits |= (bits << num);
        return bits[sum >> 1];
    }
 */
+func canPartition(nums []int) bool {
+	var sum, maxNum int
+	for _, num := range nums {
+		sum += num
+		if num > maxNum {
+			maxNum = num
+		}
+	}
+	part := sum >> 1
+	if sum&1 != 0 || len(nums) < 2 || maxNum > part {
+		return false
+	}
+
+	bits := set.NewBitSet(uint64(sum))
+	bits.Set(0, 1)
+	for _, num := range nums {
+		tmpBits := bits.Clone()
+		tmpBits.LeftShift(num)
+		bits = bits.Or(tmpBits)
+	}
+	//fmt.Println(nums,bits)
+
+	if bits.Get(uint64(sum)>>1) == 1 {
+		return true
+	}
+
+	return false
+}
 
 // 降低空间复杂度 和 逻辑剪枝
 func canPartitionV4(nums []int) bool {
@@ -159,7 +191,7 @@ func main() {
 	}
 
 	for _, item := range tCases {
-		res := canPartitionV4(item)
+		res := canPartition(item)
 		println(res)
 	}
 }
