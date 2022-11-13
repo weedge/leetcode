@@ -62,8 +62,8 @@ func checkCircularDep(depArr [][]string) bool {
 		}
 	}
 
+	fmt.Printf("depRunRes:%+v\n", depRes)
 	if len(depRes) == len(nodes) {
-		fmt.Printf("depRunRes:%+v\n", depRes)
 		return true
 	}
 
