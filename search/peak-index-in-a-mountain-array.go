@@ -87,4 +87,13 @@ func peakIndexInMountainArrayV2(arr []int) int {
 // see search_test.go and doc
 func peakIndexInMountainArrayV3(arr []int) int {
 	return sort.Search(len(arr)-1, func(i int) bool { return arr[i] > arr[i+1] })
+
+	//pos, found := sort.Find(len(arr)-1, func(i int) int {
+	//	if arr[i] < arr[i+1] {
+	//		return 1
+	//	}
+	//	return 0
+	//})
+	//println(found)
+	//return pos
 }
