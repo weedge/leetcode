@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 func search(arr []int, target int) (pos int) {
 	n := len(arr)
 	l, h := 0, n-1
@@ -29,35 +25,4 @@ func search(arr []int, target int) (pos int) {
 	}
 
 	return -1
-}
-
-func main() {
-	type TestCase struct {
-		nums   []int
-		target int
-	}
-	testCases := []TestCase{
-		{
-			nums:   []int{1,3},
-			target: 3,
-		},
-		{
-			nums:   []int{4,5,6,7,0,1,2},
-			target: 0,
-		},
-		{
-			nums:   []int{4,5,6,7,0,1,2},
-			target: 3,
-		},
-		{
-			nums:   []int{1},
-			target: 0,
-		},
-	}
-
-	for _, testCase := range testCases {
-		res := search(testCase.nums, testCase.target)
-		fmt.Println(res)
-		return
-	}
 }
